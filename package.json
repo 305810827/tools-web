@@ -1,0 +1,22 @@
+{
+  "name": "nuxt-app",
+  "private": true,
+  "scripts": {
+    "build": "nuxt build",
+    "dev": "nuxt dev",
+    "generate": "nuxt generate",
+    "preview": "nuxt preview",
+    "postinstall": "nuxt prepare"
+  },
+  "devDependencies": {
+    "@element-plus/nuxt": "^1.0.5",
+    "@types/node": "^18",
+    "element-plus": "^2.3.5",
+    "nuxt": "^3.5.0"
+  },
+  "dependencies": {
+    "js-cookie": "^3.0.5",
+    "less": "^4.1.3",
+    "less-loader": "^11.1.0"
+  }
+}

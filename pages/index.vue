@@ -1,0 +1,70 @@
+<template>
+    <el-container>
+        <el-upload
+            class="upload-demo"
+            drag
+            multiple
+            :before-upload="beforeAvatarUpload"
+        >
+            <el-icon class="el-icon--upload"><upload-filled /></el-icon>
+            <div class="el-upload__text">
+                Drop file here or <em>click to upload</em>
+            </div>
+            <template #tip>
+                <div class="el-upload__tip">
+                    jpg/png files with a size less than 500kb
+                </div>
+            </template>
+        </el-upload>
+        <el-button class="ml-3" type="success" @click="submitUpload">
+            upload to server
+        </el-button>
+        <el-button class="ml-3" type="success" @click="docx2pdf">
+            docs to pdf
+        </el-button>
+        <el-button class="ml-3" type="success" @click="pdf2docx">
+            pdf to docs
+        </el-button>
+    </el-container>
+</template>
+<script lang="ts" setup>
+import { ref } from 'vue'
+import { UploadFilled } from '@element-plus/icons-vue'
+import type { UploadInstance } from 'element-plus'
+
+let filename = '22'
+let uploadFile: string | Blob | null = null
+const beforeAvatarUpload = (file: any) => {
+    let nameArr = file.name.split('.')
+    filename = nameArr[0] + new Date().getTime() + '.' + nameArr[1]
+    console.log(filename, 'filename')
+    uploadFile = file
+}
+
+const submitUpload = async () => {
+    if(!uploadFile) return
+    let formData = new FormData()
+    // const { file: fileInfo, content } = file
+    formData.append(filename, uploadFile)
+    await useFetch('/api/uploadFile', {
+        method: "POST",
+        body: formData
+    })
+}
+
+const docx2pdf = async () => {
+    console.log(filename, 'filename22')
+    await useFetch('/api/word2pdf', {
+        method: "POST",
+        body: {
+            filename
+        }
+    })
+}
+const pdf2docx = async () => {
+
+}
+</script>
+<style scoped>
+
+</style>
