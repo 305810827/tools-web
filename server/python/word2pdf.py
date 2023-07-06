@@ -1,8 +1,10 @@
-
+file_path = './server/file/'
 import os
 from docx2pdf import convert
-file_path = './server/file/'
-file_name = '221684749934914.docx'
+file_path = os.getcwd()
+
+file_name = '221685517939690.docx'
+print(file_path, 'file_path')
 
 for file in os.listdir(file_path):
     print(file, 'file')
