@@ -1,10 +1,10 @@
 <template>
-    <el-container>
+    <div class="container">
         <el-upload
-            class="upload-demo"
-            drag
-            multiple
-            :before-upload="beforeAvatarUpload"
+                class="upload-demo"
+                drag
+                multiple
+                :before-upload="beforeAvatarUpload"
         >
             <el-icon class="el-icon--upload"><upload-filled /></el-icon>
             <div class="el-upload__text">
@@ -16,16 +16,24 @@
                 </div>
             </template>
         </el-upload>
-        <el-button class="ml-3" type="success" @click="submitUpload">
+        <el-button class="ml-3" type="success" @click="submitUpload($event)">
             upload to server
         </el-button>
-        <el-button class="ml-3" type="success" @click="docx2pdf">
+        <el-button class="ml-3" type="success" @click="docx2pdf($event)">
             docs to pdf
         </el-button>
-        <el-button class="ml-3" type="success" @click="pdf2docx">
-            pdf to docs
+        <el-button class="ml-3" type="success" @click="pdf2docx('docx')">
+            pdf to docx
         </el-button>
-    </el-container>
+        <el-button class="ml-3" type="success" @click="pdf2docx('csv')">
+            pdf to csv
+        </el-button>
+        <el-button class="ml-3" type="success" @click="pdf2docx('txt')">
+            pdf to txt
+        </el-button>
+    </div>
+
+
 </template>
 
 <script lang="ts" setup>
@@ -42,7 +50,7 @@ const beforeAvatarUpload = (file: any) => {
     uploadFile = file
 }
 
-const submitUpload = async () => {
+const submitUpload = async (event: MouseEvent) => {
     if(!uploadFile) return
     let formData = new FormData()
     // const { file: fileInfo, content } = file
@@ -53,7 +61,7 @@ const submitUpload = async () => {
     })
 }
 
-const docx2pdf = async () => {
+const docx2pdf = async (event: MouseEvent) => {
     console.log(filename, 'filename22')
     await useFetch('/api/word2pdf', {
         method: "POST",
@@ -62,12 +70,22 @@ const docx2pdf = async () => {
         }
     })
 }
-const pdf2docx = async () => {
-
+const pdf2docx = async (fileType: string) => {
+    const res = await useFetch('/api/pdf2word', {
+        method: "POST",
+        body: {
+            filename,
+            fileType
+        }
+    })
+    console.log(res)
 }
 
 </script>
 
 <style scoped>
+.container {
+    padding: 50px 150px;
 
+}
 </style>

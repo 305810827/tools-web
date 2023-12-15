@@ -19,5 +19,7 @@ onMounted(() => {
 #themeConfig {
   min-height: 100vh;
   background-color: @theme-color;
+  padding:0;
+  margin: 0;
 }
 </style>

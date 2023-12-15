@@ -6,7 +6,8 @@ import unoconv from 'node-unoconv';
 
 // import { exec, spawn } from 'child_process';
 export default defineEventHandler(async e=>{
-
+    const body = await readMultipartFormData(e)
+    console.log(body, 'body')
 //     const { method } = e.node.req;
 // // I THINK THE ISSUE IS HERE
 //     const body =
@@ -35,7 +36,7 @@ export default defineEventHandler(async e=>{
     };
 
     let input = resolve('./server/file/221685517939690.docx')
-    console.log(input)
+    console.log(input, 'input')
     unoconv.convert(input)
         .then((buffer: string | any[]) => {
             console.log(buffer.length);

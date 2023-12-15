@@ -8,17 +8,24 @@ export default defineEventHandler(async e=>{
             : undefined;
 
     const opt = {
-        flag: 'a', // a：追加写入；w：覆盖写入
+        flag: 'w', // a：追加写入；w：覆盖写入
     }
     // @ts-ignore
     let {data, name} = body[0]
-    console.log(data, name)
-    if (data && name) {
-        fs.writeFile(`./server/file/${name}`, data, opt, (err) => {
+    // @ts-ignore
+    const fileName = encodeURIComponent(name); // 将文件名转换为指定的编码格式，例如GBK
+    if (data && fileName) {
+        fs.writeFile(`./server/file/${fileName}`, data,  opt, (err) => {
             if (err) {
                 console.error(err)
+                return {
+                    flag: "F"
+                }
+            } else {
+                return {
+                    flag: "S"
+                }
             }
         })
     }
-
 })

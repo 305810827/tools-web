@@ -2,7 +2,7 @@
     <el-container>
         <span></span>
         <el-input v-model="inputVal" />
-        <el-button @click="colorConvert">转换</el-button>
+        <el-button @click="colorConvert($event)">转换</el-button>
         <div>{{outputVal}}</div>
         <div :style="{width: '40px',height: '40px',backgroundColor: outputVal}"></div>
     </el-container>
@@ -24,8 +24,7 @@ const isRGBColor = (color:string) => {
     return rgbColorRegex.test(color);
 }
 
-const colorConvert = () => {
-    console.log(inputVal.value)
+const colorConvert: (event: MouseEvent) => void  = (event: MouseEvent) => {
     if(isHexColor(inputVal.value)) {
         outputVal.value = colorRgb(inputVal.value)
     } else if(isRGBColor(inputVal.value)) {
@@ -33,7 +32,6 @@ const colorConvert = () => {
     } else {
         outputVal.value = '输入颜色有误'
     }
-    console.log(outputVal.value)
 }
 /*16进制转换为RGB颜色*/
 const colorRgb = (colorStr:string) => {
