@@ -1,9 +1,9 @@
 <template>
   <div id="themeConfig" :class="themeConfig">
 <!--    <NuxtWelcome />-->
-<!--      <NuxtLayout>-->
-      <NuxtPage />
-<!--      </NuxtLayout>-->
+      <NuxtLayout>
+        <NuxtPage />
+      </NuxtLayout>
   </div>
 </template>
 <script lang="ts" setup>
